@@ -25,7 +25,7 @@ public class SimpleEmailController {
     @Autowired
     private Configuration freemarkerConfig;
 
-    @RequestMapping("/simpleemail5")
+    @RequestMapping("/sendMail")
     @ResponseBody
     String home() {
         try {
@@ -42,7 +42,7 @@ public class SimpleEmailController {
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         Map<String, Object> model = new HashMap();
-        model.put("user", "qpt");
+        model.put("user", "Creative");
 
         // set loading location to src/main/resources
         // You may want to use a subfolder such as /templates here
