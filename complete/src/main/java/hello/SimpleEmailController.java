@@ -34,33 +34,27 @@ public class SimpleEmailController {
 
         Map<String, Object> model = new HashMap();
         model.put("user", "Creative");
-        System.out.println(payload);
         JSONObject jsonObj = new JSONObject(payload);
         jsonObj.keys().forEachRemaining(k ->
         {
-            //System.out.println(k);
             try {
-                System.out.println(jsonObj.get((String) k));
                 model.put((String) k, jsonObj.get((String) k));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         });
-        // set loading location to src/main/resources
-        // You may want to use a subfolder such as /templates here
+
         freemarkerConfig.setClassForTemplateLoading(this.getClass(), "/");
 
-        Template t = freemarkerConfig.getTemplate("welcome.ftl");
+        Template t = freemarkerConfig.getTemplate("clientConfirmation.ftl");
         String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
-
         helper.setTo((String)jsonObj.get("sentTo"));
         helper.setText(text, true); // set to html
-        helper.setSubject("Hi");
-
+        helper.setSubject("Miracle asia booking confirmation");
         sender.send(message);
     }
 
-    @PostMapping("/process")
+    @PostMapping("/sendClientConfirmation")
     @ResponseBody
     public String process(@RequestBody String payload) throws Exception {
 
